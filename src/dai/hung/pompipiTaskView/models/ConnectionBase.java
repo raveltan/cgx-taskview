@@ -8,13 +8,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ConnectionBase {
-    protected static String apiKey =
+    public static String apiKey =
             "AIzaSyDIL0Ip-z3DwSx2X0KaCOdPbcOK2SmqjtQ";
-    protected static URL url;
-    protected static HttpURLConnection connection;
-    protected  static ObjectMapper mapper = new ObjectMapper();
+    private static URL url;
+    private static HttpURLConnection connection;
+    private static ObjectMapper mapper = new ObjectMapper();
 
-    protected static Map request(String urlAddress, String connectionType, String[] ...connectionParams){
+    public static Map request(String urlAddress, String connectionType, String[] ...connectionParams){
         try {
             url = new URL(urlAddress);
             connection = (HttpURLConnection) url.openConnection();

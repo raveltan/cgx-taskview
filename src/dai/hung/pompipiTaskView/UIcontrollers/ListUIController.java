@@ -1,4 +1,4 @@
-package dai.hung.pompipiTaskView.controllers;
+package dai.hung.pompipiTaskView.UIcontrollers;
 
 import dai.hung.pompipiTaskView.widgets.Tile;
 import javafx.event.ActionEvent;
@@ -8,7 +8,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class ListController {
+public class ListUIController {
     public VBox projectList;
 
     @FXML
@@ -23,8 +23,10 @@ public class ListController {
     }
 
     public void logout(ActionEvent actionEvent) {
+
     }
 
     public void createProject(ActionEvent actionEvent) {
+
     }
 }

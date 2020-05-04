@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Pompipi TaskView:jar">
+    <output-path>$USER_HOME$/Desktop</output-path>
+    <root id="archive" name="Pompipi TaskView.jar">
+      <element id="module-output" name="Pompipi TaskView" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../libs/jackson-annotations-2.11.0.rc1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../libs/commons-validator-1.6/commons-validator-1.6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../libs/jackson-core-2.11.0.rc1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../libs/jackson-databind-2.11.0.rc1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../libs/jfoenix-8.0.8.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
