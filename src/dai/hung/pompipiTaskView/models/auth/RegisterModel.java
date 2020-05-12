@@ -1,8 +1,9 @@
-package dai.hung.pompipiTaskView.models;
+package dai.hung.pompipiTaskView.models.auth;
 
-import com.victorlaerte.asynctask.AsyncTask;
-import javafx.scene.control.Alert;
+import dai.hung.pompipiTaskView.models.ConnectionBase;
+import dai.hung.pompipiTaskView.models.ResultInterface;
 
+import java.io.IOException;
 import java.util.Map;
 
 public class RegisterModel implements Runnable {
@@ -41,6 +42,14 @@ public class RegisterModel implements Runnable {
                 error = "Unknown Error";
             }
         } else {
+            try {
+                TokenWriter.writeFile(result.get("idToken") +
+                        "\n" +
+                        result.get("refreshToken"));
+            } catch (IOException e) {
+                error = "Unable to write jwt!";
+                e.printStackTrace();
+            }
             return result;
         }
         return null;

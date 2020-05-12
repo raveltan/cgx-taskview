@@ -1,5 +1,9 @@
-package dai.hung.pompipiTaskView.models;
+package dai.hung.pompipiTaskView.models.auth;
 
+import dai.hung.pompipiTaskView.models.ConnectionBase;
+import dai.hung.pompipiTaskView.models.ResultInterface;
+
+import java.io.IOException;
 import java.util.Map;
 
 public class LoginModel implements Runnable {
@@ -9,7 +13,7 @@ public class LoginModel implements Runnable {
     ResultInterface resultInterface;
     String error;
 
-    public LoginModel(String username, String password,ResultInterface resultInterface) {
+    public LoginModel(String username, String password, ResultInterface resultInterface) {
         this.username = username;
         this.password = password;
         this.resultInterface = resultInterface;
@@ -34,11 +38,18 @@ public class LoginModel implements Runnable {
                     default:
                         error = ("Unable to login.");
                 }
-
             } catch (Exception e) {
                 error = ("Unknown Error");
             }
         } else {
+            try {
+                TokenWriter.writeFile(result.get("idToken") +
+                        "\n" +
+                        result.get("refreshToken"));
+            } catch (IOException e) {
+                error = "Unable to write jwt!";
+                e.printStackTrace();
+            }
             return result;
         }
         return null;
@@ -47,6 +58,6 @@ public class LoginModel implements Runnable {
     @Override
     public void run() {
         Map result = doLogin(username, password);
-        resultInterface.onFinish(result,error);
+        resultInterface.onFinish(result, error);
     }
 }

@@ -1,10 +1,10 @@
-package dai.hung.pompipiTaskView.UIcontrollers;
+package dai.hung.pompipiTaskView.UIcontrollers.auth;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import dai.hung.pompipiTaskView.models.LoginModel;
-import dai.hung.pompipiTaskView.models.RegisterModel;
+import dai.hung.pompipiTaskView.models.auth.LoginModel;
+import dai.hung.pompipiTaskView.models.auth.RegisterModel;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -83,6 +83,7 @@ public class LoginUIController {
             }
         }
     }
+
     private void onFinish(Map result, String error){
         if (error != null) {
             Platform.runLater(() -> {
