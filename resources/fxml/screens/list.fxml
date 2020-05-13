@@ -20,7 +20,7 @@
                   <Insets left="40.0" right="40.0" top="40.0" />
                </VBox.margin>
                <children>
-                  <Label text="DAIHUNG@OUTLOOK.COM">
+                  <Label style="-fx-font-size: 18" fx:id="emailText" text="DAIHUNG@OUTLOOK.COM">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -29,7 +29,9 @@
                      </font>
                   </Label>
                   <Region HBox.hgrow="ALWAYS" />
-                  <JFXButton buttonType="RAISED" onAction="#logout" style="-fx-background-color: #eee;" text="Logout" />
+                  <JFXButton
+
+                          buttonType="RAISED" onAction="#logout" style="-fx-background-color: #eee;" text="Logout" />
                </children>
             </HBox>
             <Label fx:id="titleText" text="Create New">

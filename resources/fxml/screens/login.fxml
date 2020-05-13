@@ -56,14 +56,7 @@
                   <Insets bottom="2.0" left="40.0" right="40.0" top="2.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="forgotPasswordButton" onMouseClicked="#forgotPassword" text="Forgot Password?" textFill="#6cbeda">
-               <VBox.margin>
-                  <Insets bottom="10.0" left="40.0" />
-               </VBox.margin>
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
+
             <JFXButton fx:id="signInButton" buttonType="RAISED" onAction="#signIn" onKeyReleased="#submitForm" ripplerFill="#daf6ff" style="-fx-background-color: #6CBEDA;" text="Sign In" textFill="WHITE">
                <VBox.margin>
                   <Insets left="40.0" top="2.0" />

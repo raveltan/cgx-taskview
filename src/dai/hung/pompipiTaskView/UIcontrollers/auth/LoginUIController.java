@@ -5,8 +5,10 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import dai.hung.pompipiTaskView.models.auth.LoginModel;
 import dai.hung.pompipiTaskView.models.auth.RegisterModel;
+import dai.hung.pompipiTaskView.state.AuthState;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -15,10 +17,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.apache.commons.validator.routines.EmailValidator;
-
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -43,8 +43,11 @@ public class LoginUIController {
     private final EmailValidator validator = EmailValidator.getInstance();
     private State state = State.LOGIN;
 
-    public void forgotPassword(MouseEvent mouseEvent) {
-        //TODO:DH implement forgot password
+    @FXML
+    public void initialize(){
+        if(AuthState.getEmail() != null){
+            goToProjects();
+        }
     }
 
     public void setFormEnabled(boolean enabled) {
@@ -96,19 +99,30 @@ public class LoginUIController {
                 setFormEnabled(true);
             });
         } else {
-            Platform.runLater(() -> {
-                setFormEnabled(true);
-                Stage stage = (Stage) ((Node) emailField).getScene().getWindow();
-                Parent root = null;
-                try {
-                    root = FXMLLoader.load(getClass().getResource("/fxml/screens/list.fxml"));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                stage.setScene(new Scene(root, 800, 600));
-            });
+            AuthState.login(
+                    result.get("email").toString(),
+                    result.get("idToken").toString(),
+                    result.get("refreshToken").toString()
+            );
+            goToProjects();
         }
     }
+
+    private void goToProjects(){
+        Platform.runLater(() -> {
+            setFormEnabled(true);
+            Stage stage = (Stage) ((Node) emailField).getScene().getWindow();
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("/fxml/screens/list.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            stage.setScene(new Scene(root, 800, 600));
+            // TODO : Handle on close to terminate application
+        });
+    }
+
 
     public void createAccount(ActionEvent actionEvent) {
         if (state == State.LOGIN) {
@@ -116,14 +130,12 @@ public class LoginUIController {
             clearFields();
             state = State.REGISTER;
             signInButton.setText("Register");
-            forgotPasswordButton.setVisible(false);
             titleText.setText("Register");
         } else {
             createAccountButton.setText("Create a new Account");
             clearFields();
             state = State.LOGIN;
             signInButton.setText("Login");
-            forgotPasswordButton.setVisible(true);
             titleText.setText("Login");
         }
     }

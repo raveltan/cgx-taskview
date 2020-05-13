@@ -45,7 +45,7 @@ public class LoginModel implements Runnable {
             try {
                 TokenWriter.writeFile(result.get("idToken") +
                         "\n" +
-                        result.get("refreshToken"));
+                        result.get("refreshToken") + "\n" + result.get("email"));
             } catch (IOException e) {
                 error = "Unable to write jwt!";
                 e.printStackTrace();
