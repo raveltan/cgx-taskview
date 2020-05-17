@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dai.hung.pompipiTaskView.UIcontrollers.viewProjects.ViewProjectController">
+   <children>
+      <VBox prefWidth="350.0" style="-fx-background-color: #fff;">
+         <children>
+            <HBox alignment="CENTER_LEFT">
+               <VBox.margin>
+                  <Insets left="40.0" right="40.0" top="40.0" />
+               </VBox.margin>
+               <children>
+                  <Label fx:id="emailText" style="-fx-font-size: 16;" text="DAIHUNG@OUTLOOK.COM">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <JFXButton fx:id="logoutButton" buttonType="RAISED" onAction="#logout" style="-fx-background-color: #eee;" text="Logout" />
+               </children>
+            </HBox>
+            <Label fx:id="titleText" text="Create New">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="40.0" right="10.0" top="4.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="45.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="projectTextFiled" promptText="Project Name">
+               <VBox.margin>
+                  <Insets left="40.0" right="40.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXTextField>
+            <Label fx:id="errorText" text="Project name must be at least 3 letters!" textFill="RED">
+               <VBox.margin>
+                  <Insets left="40.0" right="40.0" top="5.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="createProjectButton" buttonType="RAISED" onAction="#createProject" style="-fx-background-color: #BCE2FC;" text="Create">
+               <VBox.margin>
+                  <Insets left="40.0" right="40.0" top="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+            <Region VBox.vgrow="ALWAYS" />
+            <HBox alignment="CENTER">
+               <VBox.margin>
+                  <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+               </VBox.margin>
+               <children>
+                  <Label text="(C) Copyright 2020 Ravel Tanjaya">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox fx:id="projectList" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #BCE2FC;" HBox.hgrow="ALWAYS">
+         <Label text="Project List">
+            <font>
+               <Font name="System Bold" size="24.0" />
+            </font>
+            <VBox.margin>
+               <Insets top="35.0" />
+            </VBox.margin>
+         </Label>
+      </VBox>
+   </children>
+</HBox>

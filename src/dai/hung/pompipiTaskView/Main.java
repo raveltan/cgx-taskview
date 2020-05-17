@@ -1,7 +1,6 @@
 package dai.hung.pompipiTaskView;
 
 import dai.hung.pompipiTaskView.models.auth.TokenWriter;
-import dai.hung.pompipiTaskView.state.AuthState;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,7 +18,7 @@ public class Main extends Application {
             isLogedin=false;
         }
         Parent root = FXMLLoader.load(getClass().getResource(
-                isLogedin ? "/fxml/screens/list.fxml" : "/fxml/screens/login.fxml"
+                isLogedin ? "/fxml/screens/view-project.fxml" : "/fxml/screens/login.fxml"
         ));
         primaryStage.setTitle("Pompipi TaskView");
         primaryStage.setResizable(false);

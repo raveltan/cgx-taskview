@@ -114,7 +114,7 @@ public class LoginUIController {
             Stage stage = (Stage) ((Node) emailField).getScene().getWindow();
             Parent root = null;
             try {
-                root = FXMLLoader.load(getClass().getResource("/fxml/screens/list.fxml"));
+                root = FXMLLoader.load(getClass().getResource("/fxml/screens/view-project.fxml"));
             } catch (IOException e) {
                 e.printStackTrace();
             }

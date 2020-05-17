@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="75.0" style="-fx-background-color: #fff; -fx-background-radius: 30;"
-      xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox alignment="CENTER" fillHeight="false" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" style="-fx-background-color: #fff; -fx-background-radius: 30;" HBox.hgrow="ALWAYS">
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+         <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+            <Label fx:id="titleText" text="Hello world">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Region maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+            <JFXButton buttonType="RAISED" style="-fx-background-color: #eee;" text="Edit" />
+         </HBox>
+      </VBox>
+   </children>
    <padding>
-      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+      <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
    </padding>
-   <HBox>
-      <Label fx:id="titleText" text="Hello world">
-         <font>
-            <Font name="System Bold" size="24.0"/>
-         </font>
-      </Label>
-      <Region prefWidth="100.0"/>
-      <Text fx:id="timeText" strokeType="OUTSIDE" strokeWidth="0.0" text="19-05-2001">
-         <font>
-            <Font size="18.0"/>
-         </font>
-      </Text>
-   </HBox>
-   <Text fx:id="descText" strokeType="OUTSIDE" strokeWidth="0.0"
-         text="theidf daslfldkk fask fksdfl kdsafl ksd fls fla sdf lds">
-      <font>
-         <Font size="14.0"/>
-      </font>
-   </Text>
-</VBox>
+</HBox>
