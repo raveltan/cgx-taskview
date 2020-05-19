@@ -1,10 +1,13 @@
 package dai.hung.pompipiTaskView;
 import dai.hung.pompipiTaskView.models.auth.TokenWriter;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Main extends Application {
 
@@ -22,6 +25,13 @@ public class Main extends Application {
         primaryStage.setTitle("CGX TaskView");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 800, 600));
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
         primaryStage.show();
     }
 

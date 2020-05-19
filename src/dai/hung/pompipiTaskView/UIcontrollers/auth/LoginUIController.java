@@ -126,7 +126,6 @@ public class LoginUIController {
                 e.printStackTrace();
             }
             stage.setScene(new Scene(root, 800, 600));
-            // TODO : Handle on close to terminate application
         });
     }
 
