@@ -103,9 +103,11 @@ public class RestRequest implements Runnable {
         Map result = null;
         try {
             result = doRequest();
-            if (result.containsKey("error")) {
-                System.out.println(result.get("error"));
-                result = doRequest();
+            if(result != null){
+                if (result.containsKey("error")) {
+                    System.out.println(result.get("error"));
+                    result = doRequest();
+                }
             }
             resultInterface.onFinish(result, error);
         } catch (JsonProcessingException e) {

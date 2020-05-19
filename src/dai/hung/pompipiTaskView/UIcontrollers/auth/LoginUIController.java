@@ -25,7 +25,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class LoginUIController {
-    public JFXButton createAccountButton;
+    @FXML
+    private JFXButton createAccountButton;
 
     private enum State {
         LOGIN,
@@ -97,8 +98,6 @@ public class LoginUIController {
     private void onFinish(Map result, String error){
         if (error != null) {
             Platform.runLater(() -> {
-//                emailErrorText.setVisible(true);
-//                emailErrorText.setText(error);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Failed");
                 alert.setContentText(error);
