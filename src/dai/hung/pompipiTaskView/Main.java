@@ -1,5 +1,4 @@
 package dai.hung.pompipiTaskView;
-
 import dai.hung.pompipiTaskView.models.auth.TokenWriter;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,16 +10,16 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        boolean isLogedin;
+        boolean isLogin;
         try{
-            isLogedin = TokenWriter.readStateFromFile();
+            isLogin = TokenWriter.readStateFromFile();
         }catch (Exception ex){
-            isLogedin=false;
+            isLogin=false;
         }
         Parent root = FXMLLoader.load(getClass().getResource(
-                isLogedin ? "/fxml/screens/view-project.fxml" : "/fxml/screens/login.fxml"
+                isLogin ? "/fxml/screens/view-project.fxml" : "/fxml/screens/login.fxml"
         ));
-        primaryStage.setTitle("Pompipi TaskView");
+        primaryStage.setTitle("CGX TaskView");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();

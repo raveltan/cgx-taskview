@@ -36,7 +36,8 @@ public class TokenWriter {
             String token = scan.nextLine();
             String refreshToken = scan.nextLine();
             String email = scan.nextLine();
-            AuthState.login(email,token,refreshToken);
+            String localId = scan.nextLine();
+            AuthState.login(email,token,refreshToken,localId);
             return true;
         }
         return  false;

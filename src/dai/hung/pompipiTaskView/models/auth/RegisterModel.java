@@ -1,6 +1,5 @@
 package dai.hung.pompipiTaskView.models.auth;
 
-import dai.hung.pompipiTaskView.models.ConnectionBase;
 import dai.hung.pompipiTaskView.models.ResultInterface;
 
 import java.io.IOException;
@@ -20,11 +19,11 @@ public class RegisterModel implements Runnable {
     }
 
     private Map doRegister(String username, String password) {
-        Map result = ConnectionBase.request("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key="+ConnectionBase.apiKey,"POST",
-                new String[] {"email",username},new String[] {"password",password},new String[] {"returnSecureToken","true"});
-        if(result != null && result.containsKey("error")){
+        Map result = ConnectionBase.request("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + ConnectionBase.apiKey, "POST",
+                new String[]{"email", username}, new String[]{"password", password}, new String[]{"returnSecureToken", "true"});
+        if (result != null && result.containsKey("error")) {
             try {
-                String errorMessage =((Map)result.get("error")).get("message").toString();
+                String errorMessage = ((Map) result.get("error")).get("message").toString();
                 switch (errorMessage) {
                     case "EMAIL_EXISTS":
                         error = ("User with this email already exists.");
@@ -38,14 +37,15 @@ public class RegisterModel implements Runnable {
                     default:
                         error = ("Unable to register.");
                 }
-            }catch (Exception e) {
+            } catch (Exception e) {
                 error = "Unknown Error";
             }
         } else {
             try {
                 TokenWriter.writeFile(result.get("idToken") +
                         "\n" +
-                        result.get("refreshToken") + "\n"  + result.get("email"));
+                        result.get("refreshToken") + "\n" + result.get("email") + "\n" +
+                        result.get("localId"));
             } catch (IOException e) {
                 error = "Unable to write jwt!";
                 e.printStackTrace();
@@ -58,6 +58,6 @@ public class RegisterModel implements Runnable {
     @Override
     public void run() {
         Map result = doRegister(username, password);
-        resultInterface.onFinish(result,error);
+        resultInterface.onFinish(result, error);
     }
 }

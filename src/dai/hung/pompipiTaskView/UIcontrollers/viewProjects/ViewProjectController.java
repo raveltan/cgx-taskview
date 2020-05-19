@@ -2,8 +2,10 @@ package dai.hung.pompipiTaskView.UIcontrollers.viewProjects;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import dai.hung.pompipiTaskView.state.AuthState;
 import dai.hung.pompipiTaskView.UIcontrollers.widgets.Tile;
+import dai.hung.pompipiTaskView.models.ResultInterface;
+import dai.hung.pompipiTaskView.models.data.RestRequest;
+import dai.hung.pompipiTaskView.state.AuthState;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,26 +18,62 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ViewProjectController {
-    public Label emailText;
-    public VBox projectList;
-    public Label errorText;
-    public JFXTextField projectTextFiled;
-    public JFXButton logoutButton;
-    public JFXButton createProjectButton;
-
+    @FXML
+    private Label emailText;
+    @FXML
+    private VBox projectList;
+    @FXML
+    private Label errorText;
+    @FXML
+    private JFXTextField projectTextFiled;
+    @FXML
+    private JFXButton logoutButton;
+    @FXML
+    private JFXButton createProjectButton;
+    private Map projects;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         emailText.setText(AuthState.getEmail());
         errorText.setVisible(false);
-        addProjectList("Project 1");
-        addProjectList("Project 2");
-        setEnabled(true);
+        updateData();
     }
 
-    private void setEnabled(boolean enabled){
+    private void updateData() {
+        setEnabled(false);
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+         executor.execute(
+                 new RestRequest(
+                         AuthState.getLocalId() + "/projects",
+                         RestRequest.HttpVerb.GET,
+                         new ResultInterface() {
+                             @Override
+                             public void onFinish(Map result, String error) {
+                                 projects = result;
+                                 System.out.println(result);
+                                 Platform.runLater(
+                                         () -> {
+                                             if(projects != null){
+                                                 projects.forEach((a,b)->{
+                                                     addProjectList(b.toString());
+                                                 });
+                                             }
+                                             setEnabled(true);
+                                         }
+                                 );
+                             }
+                         }
+                 )
+         );
+    }
+
+
+    private void setEnabled(boolean enabled) {
         projectTextFiled.setEditable(enabled);
         createProjectButton.setDisable(!enabled);
         logoutButton.setDisable(!enabled);
@@ -50,7 +88,8 @@ public class ViewProjectController {
     public void createProject(ActionEvent actionEvent) {
 
     }
-    private void goToLogin(){
+
+    private void goToLogin() {
         Platform.runLater(() -> {
             Stage stage = (Stage) ((Node) emailText).getScene().getWindow();
             Parent root = null;
@@ -63,7 +102,8 @@ public class ViewProjectController {
             // TODO : Handle on close to terminate application
         });
     }
-    private void addProjectList(String title){
+
+    private void addProjectList(String title) {
         try {
             FXMLLoader load = new FXMLLoader(getClass().getResource("/fxml/widgets/project-tile.fxml"));
             load.setController(new Tile(title));

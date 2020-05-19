@@ -1,4 +1,4 @@
-package dai.hung.pompipiTaskView.models;
+package dai.hung.pompipiTaskView.models.auth;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

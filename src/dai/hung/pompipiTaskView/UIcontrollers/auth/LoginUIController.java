@@ -32,14 +32,21 @@ public class LoginUIController {
         REGISTER,
     }
 
-    public JFXTextField emailField;
-    public JFXPasswordField passwordField;
-    public Label emailErrorText;
-    public Label passwordErrorText;
+    @FXML
+    private JFXTextField emailField;
+    @FXML
+    private JFXPasswordField passwordField;
+    @FXML
+    private Label emailErrorText;
+    @FXML
+    private Label passwordErrorText;
     private boolean firstStart = true;
-    public JFXButton signInButton;
-    public Label forgotPasswordButton;
-    public Label titleText;
+    @FXML
+    private JFXButton signInButton;
+    @FXML
+    private Label forgotPasswordButton;
+    @FXML
+    private Label titleText;
     private final EmailValidator validator = EmailValidator.getInstance();
     private State state = State.LOGIN;
 
@@ -102,7 +109,8 @@ public class LoginUIController {
             AuthState.login(
                     result.get("email").toString(),
                     result.get("idToken").toString(),
-                    result.get("refreshToken").toString()
+                    result.get("refreshToken").toString(),
+                    result.get("localId").toString()
             );
             goToProjects();
         }

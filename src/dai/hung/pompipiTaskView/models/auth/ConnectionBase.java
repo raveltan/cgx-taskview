@@ -1,7 +1,11 @@
-package dai.hung.pompipiTaskView.models;
+package dai.hung.pompipiTaskView.models.auth;
 
-import java.io.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
@@ -14,7 +18,7 @@ public class ConnectionBase {
     private static HttpURLConnection connection;
     private static ObjectMapper mapper = new ObjectMapper();
 
-    public static Map request(String urlAddress, String connectionType, String[] ...connectionParams){
+    public static Map request(String urlAddress, String connectionType, String[]... connectionParams) {
         try {
             url = new URL(urlAddress);
             connection = (HttpURLConnection) url.openConnection();
@@ -37,18 +41,19 @@ public class ConnectionBase {
                 }
                 in.close();
                 connection.disconnect();
-                return mapper.readValue(content.toString(),Map.class);
-            }catch (Exception ex){
-                InputStream errorstream = connection.getErrorStream();
+                return mapper.readValue(content.toString(), Map.class);
+            } catch (Exception ex) {
+                System.out.println(ex);
+                InputStream errorStream = connection.getErrorStream();
                 StringBuilder response = new StringBuilder();
                 String line;
-                BufferedReader br = new BufferedReader(new InputStreamReader(errorstream));
+                BufferedReader br = new BufferedReader(new InputStreamReader(errorStream));
                 while ((line = br.readLine()) != null) {
                     response.append(line);
                 }
-                return mapper.readValue(response.toString(),Map.class);
+                return mapper.readValue(response.toString(), Map.class);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.toString());
         }
         return null;

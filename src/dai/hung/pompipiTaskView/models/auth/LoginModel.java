@@ -1,6 +1,5 @@
 package dai.hung.pompipiTaskView.models.auth;
 
-import dai.hung.pompipiTaskView.models.ConnectionBase;
 import dai.hung.pompipiTaskView.models.ResultInterface;
 
 import java.io.IOException;
@@ -45,7 +44,8 @@ public class LoginModel implements Runnable {
             try {
                 TokenWriter.writeFile(result.get("idToken") +
                         "\n" +
-                        result.get("refreshToken") + "\n" + result.get("email"));
+                        result.get("refreshToken") + "\n" + result.get("email") + "\n" +
+                        result.get("localId"));
             } catch (IOException e) {
                 error = "Unable to write jwt!";
                 e.printStackTrace();

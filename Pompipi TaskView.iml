@@ -14,5 +14,6 @@
     <orderEntry type="library" name="jackson-databind-2.11.0.rc1" level="project" />
     <orderEntry type="library" name="jackson-annotations-2.11.0.rc1" level="project" />
     <orderEntry type="library" name="com.victorlaerte:jfx-asynctask:1.0.1" level="project" />
+    <orderEntry type="library" name="com.squareup.okhttp3:okhttp:4.7.1" level="project" />
   </component>
 </module>
