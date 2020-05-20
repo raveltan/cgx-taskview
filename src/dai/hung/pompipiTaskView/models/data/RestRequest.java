@@ -79,11 +79,20 @@ public class RestRequest implements Runnable {
             Map result = mapper.readValue(response.body().string(), Map.class);
             if (result != null && result.containsKey("error")) {
                 if (result.get("error").equals("Auth token is expired")) {
+                    error = "Auth token is expired";
                     ExecutorService executor = Executors.newFixedThreadPool(1);
                     executor.execute(new TokenRefresh(
                             AuthState.getRefreshToken(), new ResultInterface() {
                         @Override
-                        public void onFinish(Map result, String error) { }
+                        public void onFinish(Map result, String error) {
+                           try{
+                                resultInterface.onFinish(
+                                        doRequest(), null
+                                );
+                           }catch (Exception ex){
+                               System.out.println(ex);
+                           }
+                        }
                     }
                     ));
                 } else {
@@ -98,20 +107,20 @@ public class RestRequest implements Runnable {
     }
 
 
+
     @Override
     public void run() {
-        Map result = null;
-        try {
-            result = doRequest();
-            if(result != null){
-                if (result.containsKey("error")) {
-                    System.out.println(result.get("error"));
-                    result = doRequest();
-                }
+        try{
+            Map result = doRequest();
+            if(error==null){
+                resultInterface.onFinish(result, null);
+            } else if(error == "Auth token is expired"){
+                System.out.println("Auth token is expired");
+            }else{
+                resultInterface.onFinish(result, error);
             }
-            resultInterface.onFinish(result, error);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+        }catch (Exception ex){
+            System.out.println(ex);
         }
     }
 }

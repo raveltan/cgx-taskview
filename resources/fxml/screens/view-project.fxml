@@ -38,9 +38,9 @@
                   <Font name="System Bold" size="45.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="projectTextField" onKeyReleased="#projectNameTextChanged" promptText="Project Name">
+            <JFXTextField fx:id="projectTextField" labelFloat="true" onKeyReleased="#projectNameTextChanged" promptText="Project Name">
                <VBox.margin>
-                  <Insets left="40.0" right="40.0" />
+                  <Insets left="40.0" right="40.0" top="15.0" />
                </VBox.margin>
                <font>
                   <Font size="18.0" />

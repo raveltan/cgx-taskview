@@ -45,8 +45,6 @@ public class LoginUIController {
     @FXML
     private JFXButton signInButton;
     @FXML
-    private Label forgotPasswordButton;
-    @FXML
     private Label titleText;
     private final EmailValidator validator = EmailValidator.getInstance();
     private State state = State.LOGIN;
@@ -66,7 +64,8 @@ public class LoginUIController {
         titleText.setText(enabled ? state == State.LOGIN ? "Login" : "Register" : "Loading...");
     }
 
-    public void signIn(ActionEvent actionEvent) {
+    @FXML
+    private void signIn(ActionEvent actionEvent) {
         boolean anyError = false;
         firstStart = false;
         if (!validator.isValid(emailField.getText())) {
@@ -130,7 +129,8 @@ public class LoginUIController {
     }
 
 
-    public void createAccount(ActionEvent actionEvent) {
+    @FXML
+    private void createAccount(ActionEvent actionEvent) {
         if (state == State.LOGIN) {
             createAccountButton.setText("Log In");
             clearFields();
@@ -154,13 +154,15 @@ public class LoginUIController {
         firstStart = true;
     }
 
-    public void checkEmail(KeyEvent inputMethodEvent) {
+    @FXML
+    private void checkEmail(KeyEvent inputMethodEvent) {
         if (!firstStart) {
             emailErrorText.setVisible(!validator.isValid(emailField.getText()));
         }
     }
 
-    public void checkPassword(KeyEvent keyEvent) {
+    @FXML
+    private void checkPassword(KeyEvent keyEvent) {
         if (keyEvent.getCode().equals(KeyCode.ENTER)) {
             this.signIn(null);
             return;
@@ -170,7 +172,8 @@ public class LoginUIController {
         }
     }
 
-    public void submitForm(KeyEvent keyEvent) {
+    @FXML
+    private void submitForm(KeyEvent keyEvent) {
         if (keyEvent.getCode().equals(KeyCode.ENTER)) {
             this.signIn(null);
         }

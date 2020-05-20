@@ -46,6 +46,7 @@ public class TokenRefresh implements Runnable{
             }
         } else {
             try {
+                System.out.println(result);
                 TokenWriter.writeFile(result.get("id_token") +
                         "\n" +
                         result.get("refresh_token") + "\n" + AuthState.getEmail() + "\n" +

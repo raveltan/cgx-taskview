@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0"  xmlns:fx="http://javafx.com/fxml/1" fx:controller="dai.hung.pompipiTaskView.UIcontrollers.auth.LoginUIController">
+<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dai.hung.pompipiTaskView.UIcontrollers.auth.LoginUIController">
    <children>
       <VBox prefWidth="350.0" style="-fx-background-color: #fff;">
          <children>
@@ -24,9 +24,9 @@
                   <Font name="System Bold" size="45.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="emailField" onKeyReleased="#checkEmail" promptText="Email">
+            <JFXTextField fx:id="emailField" labelFloat="true" onKeyReleased="#checkEmail" promptText="Email">
                <VBox.margin>
-                  <Insets bottom="2.0" left="40.0" right="40.0" top="20.0" />
+                  <Insets bottom="2.0" left="40.0" right="40.0" top="35.0" />
                </VBox.margin>
                <font>
                   <Font size="18.0" />
@@ -40,12 +40,12 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <JFXPasswordField fx:id="passwordField" onKeyReleased="#checkPassword" promptText="Password">
+            <JFXPasswordField fx:id="passwordField" labelFloat="true" onKeyReleased="#checkPassword" promptText="Password">
                <font>
                   <Font size="18.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="2.0" left="40.0" right="40.0" top="2.0" />
+                  <Insets bottom="2.0" left="40.0" right="40.0" top="10.0" />
                </VBox.margin>
             </JFXPasswordField>
             <Label fx:id="passwordErrorText" text="Password is invalid" textFill="#d32f2f" visible="false">

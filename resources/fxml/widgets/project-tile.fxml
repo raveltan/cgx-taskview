@@ -8,7 +8,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" fillHeight="false" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<HBox
+        alignment="CENTER" fillHeight="false" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" style="-fx-background-color: #fff; -fx-background-radius: 30;" HBox.hgrow="ALWAYS">
          <padding>
@@ -21,7 +22,7 @@
                </font>
             </Label>
             <Region maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-            <JFXButton buttonType="RAISED" style="-fx-background-color: #eee;" text="Edit" />
+            <JFXButton onAction="#edit" buttonType="RAISED" style="-fx-background-color: #eee;" text="Edit" />
          </HBox>
       </VBox>
    </children>

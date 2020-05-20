@@ -19,7 +19,6 @@ public class TokenWriter {
         FileWriter myWriter = new FileWriter(path);
         myWriter.write(data);
         myWriter.close();
-        System.out.println("Successfully wrote to the file.");
     }
 
     public static void deleteFile(){
