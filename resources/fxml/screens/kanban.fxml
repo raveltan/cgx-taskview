@@ -33,7 +33,15 @@
                           <font>
                               <Font name="System Bold" size="12.0" />
                           </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
                       </JFXButton>
+                  <JFXButton onAction="#refreshProject" ripplerFill="#c1b4b4" text="Refresh" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </JFXButton>
                   </children>
                   <padding>
                       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -46,7 +54,7 @@
                   <content>
                       <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #576574;">
                           <children>
-                              <VBox fx:id="plannedBox" alignment="TOP_CENTER" fillWidth="false" maxHeight="1.7976931348623157E308" prefWidth="300.0" style="-fx-background-color: #222f3e; -fx-background-radius: 0;" HBox.hgrow="NEVER">
+                              <VBox fx:id="plannedBox" alignment="TOP_CENTER" fillWidth="false" maxHeight="1.7976931348623157E308" prefWidth="300.0" spacing="5.0" style="-fx-background-color: #222f3e; -fx-background-radius: 0;" HBox.hgrow="NEVER">
                                   <children>
                               <HBox alignment="CENTER" prefWidth="300.0" style="-fx-background-color: #fff;">
                                  <children>
@@ -71,7 +79,7 @@
                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                   </HBox.margin>
                               </VBox>
-                        <VBox fx:id="progressBox" alignment="TOP_CENTER" fillWidth="false" maxHeight="1.7976931348623157E308" prefWidth="300.0" style="-fx-background-color: #222f3e; -fx-background-radius: 0;">
+                        <VBox fx:id="progressBox" alignment="TOP_CENTER" fillWidth="false" maxHeight="1.7976931348623157E308" prefWidth="300.0" spacing="5.0" style="-fx-background-color: #222f3e; -fx-background-radius: 0;">
                            <children>
                               <HBox alignment="CENTER" prefWidth="300.0" style="-fx-background-color: #fff;">
                                  <children>
@@ -96,7 +104,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
                         </VBox>
-                        <VBox fx:id="doneBox" alignment="TOP_CENTER" fillWidth="false" maxHeight="1.7976931348623157E308" prefWidth="300.0" style="-fx-background-color: #222f3e; -fx-background-radius: 0;">
+                        <VBox fx:id="doneBox" alignment="TOP_CENTER" fillWidth="false" maxHeight="1.7976931348623157E308" prefWidth="300.0" spacing="5.0" style="-fx-background-color: #222f3e; -fx-background-radius: 0;">
                            <children>
                               <HBox alignment="CENTER" prefWidth="300.0" style="-fx-background-color: #fff;">
                                  <children>

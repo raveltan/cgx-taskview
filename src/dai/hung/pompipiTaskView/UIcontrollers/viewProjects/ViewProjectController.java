@@ -83,7 +83,8 @@ public class ViewProjectController {
                                             } else {
                                                 Alert alert = new Alert(Alert.AlertType.ERROR);
                                                 alert.setTitle("Error");
-                                                alert.setContentText("There is problem connecting to server, try again later");
+                                                alert.setHeaderText("Unable to connect to server");
+                                                alert.setContentText(error);
                                                 alert.show();
                                                 alert.setOnCloseRequest((e) -> {
                                                     Platform.exit();
@@ -138,19 +139,16 @@ public class ViewProjectController {
                     Platform.runLater(() -> {
                         if (error != null) {
                             Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setHeaderText("Unable to add project");
                             alert.setTitle("Connection Problem");
-                            alert.setContentText("Unable to add project");
+                            alert.setContentText(error);
                             alert.show();
                         } else {
                             addProjectTile(projectTextField.getText(),randomUUID);
                             projectTextField.clear();
-                            setEnabled(true);
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setTitle("Success");
-                            alert.setContentText("Project successfully created");
-                            alert.show();
 
                         }
+                        setEnabled(true);
                     });
                 }
         ));
@@ -204,5 +202,9 @@ public class ViewProjectController {
         if (errorText.isVisible() && projectTextField.getText().length() > 3) {
             errorText.setVisible(false);
         }
+    }
+
+    public void createProjectEnter(KeyEvent keyEvent) {
+        createProject(null);
     }
 }

@@ -98,6 +98,7 @@ public class LoginUIController {
         if (error != null) {
             Platform.runLater(() -> {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
                 alert.setTitle("Failed");
                 alert.setContentText(error);
                 alert.show();
