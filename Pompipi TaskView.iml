@@ -8,13 +8,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="jfoenix-8.0.8" level="project" />
-    <orderEntry type="library" name="commons-validator-1.6" level="project" />
-    <orderEntry type="library" name="jackson-core-2.11.0.rc1" level="project" />
-    <orderEntry type="library" name="jackson-databind-2.11.0.rc1" level="project" />
-    <orderEntry type="library" name="jackson-annotations-2.11.0.rc1" level="project" />
     <orderEntry type="library" name="com.victorlaerte:jfx-asynctask:1.0.1" level="project" />
     <orderEntry type="library" name="com.squareup.okhttp3:okhttp:4.7.1" level="project" />
     <orderEntry type="library" name="com.google.code.gson:gson:2.8.6" level="project" />
+    <orderEntry type="library" name="commons-validator:commons-validator:1.6" level="project" />
+    <orderEntry type="library" name="com.fasterxml.jackson.core:jackson-databind:2.10.2" level="project" />
+    <orderEntry type="library" name="com.jfoenix:jfoenix:8.0.9" level="project" />
   </component>
 </module>
