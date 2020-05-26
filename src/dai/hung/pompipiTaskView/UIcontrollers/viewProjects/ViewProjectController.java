@@ -2,6 +2,8 @@ package dai.hung.pompipiTaskView.UIcontrollers.viewProjects;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.deploy.uitoolkit.impl.fx.HostServicesFactory;
+import com.sun.javafx.application.HostServicesDelegate;
 import dai.hung.pompipiTaskView.UIcontrollers.kanban.KanBanController;
 import dai.hung.pompipiTaskView.UIcontrollers.widgets.Tile;
 import dai.hung.pompipiTaskView.models.ResultInterface;
@@ -21,7 +23,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sun.misc.UUDecoder;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -37,6 +41,7 @@ public class ViewProjectController {
     private Label errorText;
     @FXML
     private JFXTextField projectTextField;
+
     @FXML
     private JFXButton logoutButton;
     @FXML
@@ -59,7 +64,7 @@ public class ViewProjectController {
     private void updateData() {
         setEnabled(false);
         ExecutorService executor = Executors.newFixedThreadPool(1);
-        System.out.println("update data");
+
         executor.execute(
                 new RestRequest(
                         AuthState.getLocalId() + "/projects",
@@ -71,7 +76,7 @@ public class ViewProjectController {
                                 Platform.runLater(
                                         () -> {
                                             if (error == null) {
-                                                System.out.println("update done");
+
                                                 clearProjectTile();
                                                 if (projects != null) {
                                                     projects.forEach((a, b) -> {
@@ -110,6 +115,14 @@ public class ViewProjectController {
     public void logout(ActionEvent actionEvent) {
         AuthState.logout();
         goToLogin();
+    }
+
+    public void openLink(ActionEvent actionEvent) {
+        try {
+            Desktop.getDesktop().browse(new URL("https://taskview-6358e.web.app/"+AuthState.getLocalId()).toURI());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void createProject(ActionEvent actionEvent) {

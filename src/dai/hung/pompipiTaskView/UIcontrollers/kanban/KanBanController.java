@@ -3,7 +3,6 @@ package dai.hung.pompipiTaskView.UIcontrollers.kanban;
 import com.jfoenix.controls.JFXSpinner;
 import dai.hung.pompipiTaskView.UIcontrollers.widgets.Task;
 import dai.hung.pompipiTaskView.UIcontrollers.widgets.TaskAction;
-import dai.hung.pompipiTaskView.models.ResultInterface;
 import dai.hung.pompipiTaskView.models.data.RestRequest;
 import dai.hung.pompipiTaskView.state.AuthState;
 import javafx.application.Platform;
@@ -66,7 +65,7 @@ public class KanBanController {
                 AuthState.getLocalId() + "/" + this.projectName,
                 RestRequest.HttpVerb.GET,
                 (res, err) -> {
-                    Platform.runLater(()->{
+                    Platform.runLater(() -> {
                         setEnabled(true);
                         showError(err);
                     });
@@ -98,7 +97,7 @@ public class KanBanController {
                                 });
                             }
                         });
-                        Platform.runLater(()->{
+                        Platform.runLater(() -> {
                             done.forEach((data) -> {
                                 if (data != null) {
                                     if (data != "") {
@@ -126,8 +125,6 @@ public class KanBanController {
                             });
 
                         });
-
-                        System.out.println(res);
                     }
                 }
         ));
@@ -185,42 +182,77 @@ public class KanBanController {
         dialog.setContentText("Input Task Name:");
         Optional<String> result = dialog.showAndWait();
         result.ifPresent((task) -> {
-            setEnabled(false);
-            ExecutorService service = Executors.newFixedThreadPool(2);
-            service.execute(new RestRequest(
-                    AuthState.getLocalId() + "/" + projectName + "/" + name,
-                    new HashMap() {{
-                        put(Integer.toString(name =="planned" ? planned.size() : name =="done" ? done.size() : progress.size()), task);
-                    }},
-                    RestRequest.HttpVerb.PATCH,
-                    (res, err) -> {
-                        Platform.runLater(()->{
+            processAddTask(name, task);
+        });
+    }
+
+    private void processAddTask(String name, String task) {
+        setEnabled(false);
+        ExecutorService service = Executors.newFixedThreadPool(2);
+        Map<String, String> data = new HashMap<>();
+        switch (name) {
+            case "planned":
+                if (task != null) planned.add(task);
+                for (int i = 0; i < planned.size(); i++) {
+                    data.put(Integer.toString(i), planned.get(i));
+                }
+
+                break;
+            case "progress":
+                if (task != null) progress.add(task);
+                for (int i = 0; i < progress.size(); i++) {
+                    data.put(Integer.toString(i), progress.get(i));
+                }
+                break;
+            case "done":
+                if (task != null) done.add(task);
+                for (int i = 0; i < done.size(); i++) {
+                    data.put(Integer.toString(i), done.get(i));
+                }
+                break;
+        }
+        service.execute(new RestRequest(
+                AuthState.getLocalId() + "/" + projectName + "/" + name,
+                data,
+                RestRequest.HttpVerb.PUT,
+                (res, err) -> {
+                    Platform.runLater(() -> {
                         showError(err);
-                        if (res != null) {
+                        if (err != null && task != null) {
+                            switch (name) {
+                                case "planned":
+                                    planned.remove(planned.size() - 1);
+                                    break;
+                                case "progress":
+                                    progress.remove(progress.size() - 1);
+                                    break;
+                                case "done":
+                                    done.remove(done.size() - 1);
+                                    break;
+                            }
+                        }
+                        if (res != null && task != null) {
 
-                                switch (name) {
-                                    case "planned":
-                                        planned.add(task);
-                                        addTaskTile(Task.TaskType.planned, task);
-                                        break;
-                                    case "done":
-                                        done.add(task);
-                                        addTaskTile(Task.TaskType.done, task);
-                                        break;
-                                    case "progress":
-                                        progress.add(task);
-                                        addTaskTile(Task.TaskType.progress, task);
-                                        break;
-                                }
-                                System.out.println(task);
-                                setEnabled(true);
+                            switch (name) {
+                                case "planned":
 
+                                    addTaskTile(Task.TaskType.planned, task);
+                                    break;
+                                case "done":
+
+                                    addTaskTile(Task.TaskType.done, task);
+                                    break;
+                                case "progress":
+
+                                    addTaskTile(Task.TaskType.progress, task);
+                                    break;
+                            }
 
                         }
-                        });
-                    }
-            ));
-        });
+                        setEnabled(true);
+                    });
+                }
+        ));
     }
 
     @FXML
@@ -237,7 +269,7 @@ public class KanBanController {
                                 AuthState.getLocalId() + "/projects/" + projectUUID,
                                 RestRequest.HttpVerb.DELETE,
                                 (res2, err2) -> {
-                                    Platform.runLater(()->{
+                                    Platform.runLater(() -> {
                                         setEnabled(true);
                                         if (err2 != null) {
                                             showError("Unable to delete project!");
@@ -248,7 +280,7 @@ public class KanBanController {
                                 }
                         ));
                     } else {
-                        Platform.runLater(()->{
+                        Platform.runLater(() -> {
                             showError("Unable to delete! Check your connection");
                         });
 
@@ -258,18 +290,18 @@ public class KanBanController {
     }
 
     @FXML
-    private void refreshProject(ActionEvent actionEvent){
+    private void refreshProject(ActionEvent actionEvent) {
         planned.clear();
         progress.clear();
         done.clear();
-        if(plannedBox.getChildren().size()>1){
-            plannedBox.getChildren().remove(1,plannedBox.getChildren().size());
+        if (plannedBox.getChildren().size() > 1) {
+            plannedBox.getChildren().remove(1, plannedBox.getChildren().size());
         }
-        if(doneBox.getChildren().size()>1){
-            doneBox.getChildren().remove(1,doneBox.getChildren().size());
+        if (doneBox.getChildren().size() > 1) {
+            doneBox.getChildren().remove(1, doneBox.getChildren().size());
         }
-        if(progressBox.getChildren().size()>1){
-            progressBox.getChildren().remove(1,progressBox.getChildren().size());
+        if (progressBox.getChildren().size() > 1) {
+            progressBox.getChildren().remove(1, progressBox.getChildren().size());
         }
         initialize();
 
@@ -295,28 +327,22 @@ public class KanBanController {
                             taskIndex = progress.indexOf(name);
                             taskType = "progress";
                         }
-                        ExecutorService executor = Executors.newFixedThreadPool(2);
-                        executor.execute(new RestRequest(
-                                AuthState.getLocalId() + "/" + projectName + "/" + taskType + "/" + taskIndex,
-                                RestRequest.HttpVerb.DELETE,
-                                (res, err) -> {
-                                    setEnabled(true);
-                                    showError(err);
-                                        Platform.runLater(() -> {
-                                            if (type == Task.TaskType.done) {
-                                                done.remove(name);
-                                                doneBox.getChildren().remove(taskIndex+1);
-                                            } else if (type == Task.TaskType.planned) {
-                                                planned.remove(name);
-                                                plannedBox.getChildren().remove(taskIndex+1);
-                                            } else {
-                                                progress.remove(name);
-                                                progressBox.getChildren().remove(taskIndex+1);
-                                            }
-                                        });
 
-                                }
-                        ));
+                        Platform.runLater(() -> {
+                            if (type == Task.TaskType.done) {
+                                done.remove(name);
+                                doneBox.getChildren().remove(taskIndex +1);
+                            } else if (type == Task.TaskType.planned) {
+                                planned.remove(name);
+                                plannedBox.getChildren().remove(taskIndex+1);
+                            } else {
+                                progress.remove(name);
+                                progressBox.getChildren().remove(taskIndex +1);
+                            }
+                            processAddTask(taskType,null);
+
+                        });
+
                     }
                 }));
                 if (type == Task.TaskType.done) {
@@ -326,7 +352,6 @@ public class KanBanController {
                 } else {
                     progressBox.getChildren().add(load.load());
                 }
-                System.out.println("added");
             } catch (Exception e) {
                 e.printStackTrace();
             }

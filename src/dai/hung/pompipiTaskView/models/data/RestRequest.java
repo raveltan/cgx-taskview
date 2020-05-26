@@ -2,18 +2,23 @@ package dai.hung.pompipiTaskView.models.data;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.google.gson.Gson;
 import dai.hung.pompipiTaskView.models.ResultInterface;
 import dai.hung.pompipiTaskView.models.auth.TokenRefresh;
 import dai.hung.pompipiTaskView.state.AuthState;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class RestRequest implements Runnable {
     protected ObjectMapper mapper = new ObjectMapper();
+    protected Gson gson = new Gson();
     protected String baseUrl = "https://taskview-6358e.firebaseio.com/";
     protected OkHttpClient client = new OkHttpClient();
 
@@ -26,7 +31,7 @@ public class RestRequest implements Runnable {
     }
 
     String location;
-    Map data;
+    Map<String,String> data;
     String error;
     HttpVerb httpVerb;
     ResultInterface resultInterface;
@@ -51,8 +56,10 @@ public class RestRequest implements Runnable {
         Request.Builder builder = new Request.Builder().url(
                 this.baseUrl + location + ".json?auth=" + AuthState.getToken()
         );
+
         if (data != null) {
             RequestBody body = RequestBody.create(mapper.writeValueAsString(data), JSON);
+            //RequestBody body = RequestBody.create(gson.toJson(data), JSON);
             switch (httpVerb) {
                 case PUT:
                     builder.put(body);
@@ -73,10 +80,23 @@ public class RestRequest implements Runnable {
         }
         if(httpVerb == HttpVerb.DELETE){
             builder.delete();
+            builder.delete();
         }
         Request request = builder.build();
         try (Response response = client.newCall(request).execute()) {
-            Map result = mapper.readValue(response.body().string(), Map.class);
+            String res = response.body().string();
+
+            if(httpVerb == HttpVerb.PUT){
+                Map<String,String> temp = new HashMap<>();
+                List<String> d = mapper.readValue(res, List.class);
+                if(d !=null){
+                    for(int i=0;i<d.size();i++){
+                        temp.put(Integer.toString(i),d.get(i));
+                    }
+                }
+                res = gson.toJson(temp);
+            }
+            Map result = mapper.readValue(res, Map.class);
             if (result != null && result.containsKey("error")) {
                 if (result.get("error").equals("Auth token is expired")) {
                     error = "Auth token is expired";
@@ -120,7 +140,7 @@ public class RestRequest implements Runnable {
                 resultInterface.onFinish(result, error);
             }
         }catch (Exception ex){
-            System.out.println(ex);
+            ex.printStackTrace();
         }
     }
 }
