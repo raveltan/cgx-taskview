@@ -157,6 +157,8 @@ public class KanBanController {
             stage.setMaximized(false);
             stage.setTitle("CGX TaskView");
             stage.setScene(new Scene(root, 800, 600));
+            stage.setMinWidth(800);
+            stage.setWidth(800);
         });
     }
 

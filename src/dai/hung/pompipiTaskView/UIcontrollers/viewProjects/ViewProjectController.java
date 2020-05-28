@@ -190,7 +190,7 @@ public class ViewProjectController {
                 stage.setScene(new Scene(loader.load(), 800, 600));
                 stage.setMaximized(true);
                 stage.setResizable(true);
-                stage.setMinWidth(800);
+                stage.setMinWidth(1080);
                 stage.setMinHeight(600);
                 stage.setTitle("CGX TaskView - " + name);
             } catch (IOException e) {
