@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "395983725951",
+    "firebase_url": "https://taskview-6358e.firebaseio.com",
+    "project_id": "taskview-6358e",
+    "storage_bucket": "taskview-6358e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:395983725951:android:e7f5e3fcef1918a969264a",
+        "android_client_info": {
+          "package_name": "dai.hung.cgxtaskview"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "395983725951-i4hggeutovfps525nprdmgddnv9b195r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA43HjjmvHV4cH2ezHKjVRTqY9x3nwv3i8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "395983725951-i4hggeutovfps525nprdmgddnv9b195r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
