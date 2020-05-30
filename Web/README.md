@@ -1,24 +1,26 @@
-# cgx-taskview
+# CGX Taskview Web
 
-## Project setup
-```
-npm install
-```
+## Initial Setup
 
-### Compiles and hot-reloads for development
-```
-npm run serve
+> Please get all the deps with:
+
+```bash
+yarn
 ```
 
-### Compiles and minifies for production
-```
-npm run build
+## Development
+
+> This application uses firebase for deployment, please update the firebase config file on /src/firebase.js
+
+To run the app in debug mode, run:
+
+```bash
+yarn run serve
 ```
 
-### Lints and fixes files
-```
-npm run lint
+To create a release version
+
+```bash
+yarn run build
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

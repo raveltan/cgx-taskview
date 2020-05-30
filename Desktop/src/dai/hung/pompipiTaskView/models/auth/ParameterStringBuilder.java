@@ -4,7 +4,19 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
 
+/**
+ * <h1>ParameterStringBuilder</h1>
+ * A string builder to build url options
+ * @author  Ravel Tanjaya
+ * @version 1.1.0
+ */
 public class ParameterStringBuilder {
+    /**
+     * Build the url
+     * @param params parameters
+     * @return url result
+     * @throws UnsupportedEncodingException
+     */
     public static String getParamsString(Map<String, String> params)
             throws UnsupportedEncodingException {
         StringBuilder result = new StringBuilder();

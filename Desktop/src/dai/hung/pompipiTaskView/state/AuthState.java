@@ -2,6 +2,13 @@ package dai.hung.pompipiTaskView.state;
 
 import dai.hung.pompipiTaskView.models.auth.TokenWriter;
 
+/**
+ * <h1>AuthState</h1>
+ * An static class that will hold all of the auth data
+ * using global access design pattern.
+ *  @author Ravel Tanjaya
+ *   @version 1.1.0
+ */
 public class AuthState {
     private static String token;
     private static String refreshToken;
@@ -39,6 +46,10 @@ public class AuthState {
         AuthState.refreshToken = refreshToken;
     }
 
+    /**
+     * Logout of the current user
+     * clear all credentials
+     */
     public static void logout(){
         token = null;
         refreshToken = null;

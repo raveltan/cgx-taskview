@@ -24,10 +24,22 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * <h1>LoginUIController</h1>
+ * A FXML Controller for the login view.
+ * take care of logging in and registering
+ * also takes care of validation
+ *
+ * @author Ravel Tanjaya
+ * @version 1.1.0
+ */
 public class LoginUIController {
     @FXML
     private JFXButton createAccountButton;
 
+    /**
+     * State of the registration scene whether it's login or register.
+     */
     private enum State {
         LOGIN,
         REGISTER,
@@ -49,6 +61,9 @@ public class LoginUIController {
     private final EmailValidator validator = EmailValidator.getInstance();
     private State state = State.LOGIN;
 
+    /**
+     * Redirect the scene to the projects if the email is not null
+     */
     @FXML
     public void initialize(){
         if(AuthState.getEmail() != null){
@@ -56,6 +71,10 @@ public class LoginUIController {
         }
     }
 
+    /**
+     * Set whether the form is enabled
+     * @param enabled
+     */
     public void setFormEnabled(boolean enabled) {
         emailField.setEditable(enabled);
         passwordField.setEditable(enabled);
@@ -64,6 +83,11 @@ public class LoginUIController {
         titleText.setText(enabled ? state == State.LOGIN ? "Login" : "Register" : "Loading...");
     }
 
+    /**
+     * Sign/register in with email and password from the textfield,
+     * perform validation before  singin/register
+     * @param actionEvent event data from event source(ignored)
+     */
     @FXML
     private void signIn(ActionEvent actionEvent) {
         boolean anyError = false;
@@ -94,6 +118,12 @@ public class LoginUIController {
         }
     }
 
+    /**
+     * OnFinish callback that will be called after the REST request to server is done
+     * will show auth error if any or will register the user and go to projects scene.
+     * @param result
+     * @param error
+     */
     private void onFinish(Map result, String error){
         if (error != null) {
             Platform.runLater(() -> {
@@ -115,6 +145,9 @@ public class LoginUIController {
         }
     }
 
+    /**
+     * Go to projects scene.
+     */
     private void goToProjects(){
         Platform.runLater(() -> {
             setFormEnabled(true);
@@ -129,7 +162,10 @@ public class LoginUIController {
         });
     }
 
-
+    /**
+     * Change the state of the form to register or login.
+     * @param actionEvent event data from event source(ignored)
+     */
     @FXML
     private void createAccount(ActionEvent actionEvent) {
         if (state == State.LOGIN) {
@@ -147,6 +183,9 @@ public class LoginUIController {
         }
     }
 
+    /**
+     * Reset the form
+     */
     private void clearFields() {
         emailField.setText("");
         passwordField.setText("");
@@ -155,6 +194,10 @@ public class LoginUIController {
         firstStart = true;
     }
 
+    /**
+     * A listener method that will be called on each keystroke
+     * @param inputMethodEvent event data from event source(ignored)
+     */
     @FXML
     private void checkEmail(KeyEvent inputMethodEvent) {
         if (!firstStart) {
@@ -162,6 +205,10 @@ public class LoginUIController {
         }
     }
 
+    /**
+     * A listener method that will be called on each keystroke
+     * @param keyEvent event data from event source(ignored)
+     */
     @FXML
     private void checkPassword(KeyEvent keyEvent) {
         if (keyEvent.getCode().equals(KeyCode.ENTER)) {
@@ -172,7 +219,10 @@ public class LoginUIController {
             passwordErrorText.setVisible(!(passwordField.getText().length() > 7));
         }
     }
-
+    /**
+     * A listener method that will submit the form on enter key
+     * @param keyEvent event data from event source(ignored)
+     */
     @FXML
     private void submitForm(KeyEvent keyEvent) {
         if (keyEvent.getCode().equals(KeyCode.ENTER)) {

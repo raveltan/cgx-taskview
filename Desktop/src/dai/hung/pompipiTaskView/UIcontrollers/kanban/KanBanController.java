@@ -26,6 +26,10 @@ import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * <h1>KanBanController</h1>
+ * A FXML Controller class which is responsible for each task
+ */
 public class KanBanController {
     @FXML
     private JFXSpinner loadingIndicator;
@@ -46,16 +50,29 @@ public class KanBanController {
     private ArrayList<String> progress = new ArrayList<>();
     private ArrayList<String> done = new ArrayList<>();
 
+    /**
+     * Initialize the controller with name and UUID
+     * @param projectName project name
+     * @param projectUUID project UUID
+     */
     public KanBanController(String projectName, String projectUUID) {
         this.projectName = projectName;
         this.projectUUID = projectUUID;
     }
 
+
+    /**
+     * Set whether the scene is enable.
+     * @param enabled form enabled
+     */
     private void setEnabled(boolean enabled) {
         container.setDisable(!enabled);
         container.setOpacity(enabled ? 1 : .5);
     }
 
+    /**
+     * Initialize the scene with data from the rest API and set the name label
+     */
     @FXML
     private void initialize() {
         this.projectNameLabel.setText(projectName);
@@ -130,6 +147,10 @@ public class KanBanController {
         ));
     }
 
+    /**
+     * Show error if there is any
+     * @param error error string (may be null)
+     */
     private void showError(String error) {
         if (error != null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -144,6 +165,10 @@ public class KanBanController {
         }
     }
 
+    /**
+     * Go back to the projects scene.
+     * @param actionEvent event data from event source(ignored)
+     */
     @FXML
     private void goBack(ActionEvent actionEvent) {
         Platform.runLater(() -> {
@@ -162,21 +187,37 @@ public class KanBanController {
         });
     }
 
+    /**
+     * Add a new planned data
+     * @param actionEvent event data from event source(ignored)
+     */
     @FXML
     private void addPlan(ActionEvent actionEvent) {
         addTask("planned");
     }
 
+    /**
+     * Add a new progressed data
+     * @param actionEvent event data from event source(ignored)
+     */
     @FXML
     private void addProgress(ActionEvent actionEvent) {
         addTask("progress");
     }
 
+    /**
+     * Add a new done data
+     * @param actionEvent event data from event source(ignored)
+     */
     @FXML
     private void addDone(ActionEvent actionEvent) {
         addTask("done");
     }
 
+    /**
+     * Add a new task with spesific name.
+     * @param name name of the task
+     */
     private void addTask(String name) {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("New Task");
@@ -184,11 +225,16 @@ public class KanBanController {
         dialog.setContentText("Input Task Name:");
         Optional<String> result = dialog.showAndWait();
         result.ifPresent((task) -> {
-            processAddTask(name, task);
+            changeTask(name, task);
         });
     }
 
-    private void processAddTask(String name, String task) {
+    /**
+     * Reach to the REST API to overwrite task
+     * @param name type of the event
+     * @param task name of the event
+     */
+    private void changeTask(String name, String task) {
         setEnabled(false);
         ExecutorService service = Executors.newFixedThreadPool(2);
         Map<String, String> data = new HashMap<>();
@@ -257,6 +303,12 @@ public class KanBanController {
         ));
     }
 
+    /**
+     * Delete the project(Task)
+     * make a http request to delete the project collection
+     * then make another request to delete project data
+     * @param actionEvent event data from event source(ignored)
+     */
     @FXML
     private void deleteProject(ActionEvent actionEvent) {
         ExecutorService executorService = Executors.newFixedThreadPool(2);
@@ -291,6 +343,10 @@ public class KanBanController {
         ));
     }
 
+    /**
+     * Fetch new data of the project(task) from the server
+     * @param actionEvent
+     */
     @FXML
     private void refreshProject(ActionEvent actionEvent) {
         planned.clear();
@@ -306,14 +362,22 @@ public class KanBanController {
             progressBox.getChildren().remove(1, progressBox.getChildren().size());
         }
         initialize();
-
     }
 
+    /**
+     * Add task to the scene
+     * @param type type of the task(planned,progress,done)
+     * @param name name of the task
+     */
     private void addTaskTile(Task.TaskType type, String name) {
         Platform.runLater(() -> {
             try {
                 FXMLLoader load = new FXMLLoader(getClass().getResource("/fxml/widgets/task-tile.fxml"));
                 load.setController(new Task(type, name, new TaskAction() {
+                    /**
+                     * Set the ondelete of the task
+                     * remove the task from scene if http requst is success
+                     */
                     @Override
                     public void onDelete() {
                         setEnabled(false);
@@ -341,7 +405,7 @@ public class KanBanController {
                                 progress.remove(name);
                                 progressBox.getChildren().remove(taskIndex +1);
                             }
-                            processAddTask(taskType,null);
+                            changeTask(taskType,null);
 
                         });
 

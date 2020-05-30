@@ -11,6 +11,13 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * <h1>ConnectionBase</h1>
+ * A static class to handle all auth based connection
+ * faster that restRequest as it uses HTTPCOnnection.
+ * @author Ravel Tanjaya
+ * @version 1.1.0
+ */
 public class ConnectionBase {
     public static String apiKey =
             "AIzaSyDIL0Ip-z3DwSx2X0KaCOdPbcOK2SmqjtQ";
@@ -18,6 +25,13 @@ public class ConnectionBase {
     private static HttpURLConnection connection;
     private static ObjectMapper mapper = new ObjectMapper();
 
+    /**
+     * Do a request to the server
+     * @param urlAddress url
+     * @param connectionType http verb
+     * @param connectionParams pameters
+     * @return http result
+     */
     public static Map request(String urlAddress, String connectionType, String[]... connectionParams) {
         try {
             url = new URL(urlAddress);

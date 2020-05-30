@@ -16,12 +16,22 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * A RestRequest class that is based on the OkHTTP
+ * A runnable
+ * @author Ravel Tanjaya
+ * @version 1.1.0
+ */
 public class RestRequest implements Runnable {
     protected ObjectMapper mapper = new ObjectMapper();
     protected Gson gson = new Gson();
     protected String baseUrl = "https://taskview-6358e.firebaseio.com/";
     protected OkHttpClient client = new OkHttpClient();
 
+    /**
+     * A HTTP verb enum
+     * contains all needed http verb
+     */
     public enum HttpVerb {
         PUT,
         GET,
@@ -39,6 +49,14 @@ public class RestRequest implements Runnable {
     public static final MediaType JSON
             = MediaType.get("application/json; charset=utf-8");
 
+    /**
+     * A Contructor for http request
+     * This is used for request with body such as post
+     * @param location location of data
+     * @param data map data that will be converted to json
+     * @param httpVerb http verb
+     * @param resultInterface callback
+     */
     public RestRequest(String location, Map data, HttpVerb httpVerb, ResultInterface resultInterface) {
         this.location = location;
         this.resultInterface = resultInterface;
@@ -46,12 +64,24 @@ public class RestRequest implements Runnable {
         this.httpVerb = httpVerb;
     }
 
+    /**
+     * A Contructor for http request
+     * This is used for request without body such as get
+     * @param location location of data
+     * @param httpVerb http verb
+     * @param resultInterface callback
+     */
     public RestRequest(String location, HttpVerb httpVerb, ResultInterface resultInterface) {
         this.location = location;
         this.resultInterface = resultInterface;
         this.httpVerb = httpVerb;
     }
 
+    /**
+     * Run the rest request with the parameter from the class.
+     * @return Map of data or error
+     * @throws JsonProcessingException
+     */
     public Map doRequest() throws JsonProcessingException {
         Request.Builder builder = new Request.Builder().url(
                 this.baseUrl + location + ".json?auth=" + AuthState.getToken()
@@ -99,6 +129,7 @@ public class RestRequest implements Runnable {
             Map result = mapper.readValue(res, Map.class);
             if (result != null && result.containsKey("error")) {
                 if (result.get("error").equals("Auth token is expired")) {
+                    //Run the auth token refresh to get a fresh auth token.
                     error = "Auth token is expired";
                     ExecutorService executor = Executors.newFixedThreadPool(1);
                     executor.execute(new TokenRefresh(
@@ -127,7 +158,11 @@ public class RestRequest implements Runnable {
     }
 
 
-
+    /**
+     * Runnable run mehtod,
+     * will be executed asyncronously.
+     * will refresh token before returning value if token is expired.
+     */
     @Override
     public void run() {
         try{

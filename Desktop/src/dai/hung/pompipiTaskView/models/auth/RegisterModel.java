@@ -5,6 +5,13 @@ import dai.hung.pompipiTaskView.models.ResultInterface;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * <h1>RegisterModel</h1>
+ * A class to allow the registration of new users, will do a http request.
+ *  and store the credeentials with the help of tokenwriter.
+ * @author Ravel Tanjaya
+ * @version 1.1.0
+ */
 public class RegisterModel implements Runnable {
 
     String username;
@@ -12,12 +19,24 @@ public class RegisterModel implements Runnable {
     ResultInterface resultInterface;
     String error;
 
+    /**
+     * Create a new instance of register model
+     * @param username email
+     * @param password password
+     * @param resultInterface callback
+     */
     public RegisterModel(String username, String password, ResultInterface resultInterface) {
         this.username = username;
         this.password = password;
         this.resultInterface = resultInterface;
     }
 
+    /**
+     * Do the registration and return the credentials.
+     * @param username email
+     * @param password password
+     * @return credentials or null
+     */
     private Map doRegister(String username, String password) {
         Map result = ConnectionBase.request("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + ConnectionBase.apiKey, "POST",
                 new String[]{"email", username}, new String[]{"password", password}, new String[]{"returnSecureToken", "true"});
@@ -55,6 +74,9 @@ public class RegisterModel implements Runnable {
         return null;
     }
 
+    /**
+     * Run the runnable async
+     */
     @Override
     public void run() {
         Map result = doRegister(username, password);

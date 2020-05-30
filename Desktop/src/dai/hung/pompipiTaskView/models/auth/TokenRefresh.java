@@ -6,16 +6,33 @@ import dai.hung.pompipiTaskView.state.AuthState;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * <h1>TokenRefresh</h1>
+ * Generate a new token out of the refresh token
+ * to continue operation of the application.
+ * @author RavelTanjaya
+ * @version 1.1.0
+ */
 public class TokenRefresh implements Runnable{
 
     String idToken;
     ResultInterface resultInterface;
 
+    /**
+     * Create a new tokenrefresh instace with refreshtoken and callback
+     * @param idToken refresh token
+     * @param resultInterface callback
+     */
     public TokenRefresh(String idToken, ResultInterface resultInterface) {
         this.idToken = idToken;
         this.resultInterface = resultInterface;
     }
 
+    /**
+     * Get the new token and return the error if any
+     * @param token refresh token
+     * @return token or error
+     */
     private Map doRefresh(String token) {
         Map result = ConnectionBase.request("https://securetoken.googleapis.com/v1/token?key=" + ConnectionBase.apiKey, "POST",
                 new String[]{"refresh_token", token}, new String[]{"grant_type", "refresh_token"});
@@ -62,6 +79,9 @@ public class TokenRefresh implements Runnable{
         return null;
     }
 
+    /**
+     * Run the runnable.
+     */
     @Override
     public void run() {
         doRefresh(idToken);
