@@ -1,11 +1,12 @@
 # CGX TaskView
+
 CGX Taskview is KanBan (看板) based on JavaFx.
 
 there is also flutter and web companion app.
 
 ## Download
 
-Get the cross platform binary build from the [Download page](https://github.com/raveltan/cgx-taskview/releases )
+Get the cross platform binary build from the [Download page](https://github.com/raveltan/cgx-taskview/releases)
 
 ## How to use
 
@@ -41,8 +42,6 @@ cd cgx-taskview/Mobile
 flutter build apk
 ```
 
-
-
 ## Documentation
 
 ### Dekstop
@@ -56,15 +55,8 @@ cd cgx-taskview/Desktop/doc
 
 Open the index.html
 
+## Attribution
 
-
-
-
-
-
-
-
-
-
-
-
+   <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from
+   <a href="https://www.flaticon.com/"     title="Flaticon">
+   www.flaticon.com</a></div>
